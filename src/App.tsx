@@ -1,12 +1,13 @@
 import ReactDOM from "react-dom/client";
 
 import "./index.css";
+import { HomePage } from "./pages/home/ui/HomePage";
+import { AppProvider } from "./app/providers/AppProvider";
 
 const App = () => (
-  <div className="mt-10 text-3xl mx-auto max-w-6xl">
-    <div>Name: zephyr-demo</div>
-    <div>Framework: react-19</div>
-  </div>
+  <AppProvider>
+    <HomePage />
+  </AppProvider>
 );
 
 const root = ReactDOM.createRoot(document.getElementById("app") as HTMLElement);
