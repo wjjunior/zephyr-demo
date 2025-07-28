@@ -1,46 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Header } from "../../../widgets/header/ui/Header";
 import { ProductSearch } from "../../../features/product-search/ui/ProductSearch";
 import { ProductGrid } from "../../../widgets/product-grid/ui/ProductGrid";
 import { Features } from "../../../widgets/features";
-import { mockProducts } from "../../../shared/lib/mock-data";
-import { Product, ProductCategory } from "../../../shared/lib/types";
+import { useProductSearchContext } from "../../../shared/hooks";
 
 export const HomePage: React.FC = () => {
-  const [filteredProducts, setFilteredProducts] =
-    useState<Product[]>(mockProducts);
-  const [loading, setLoading] = useState(false);
-
-  const handleSearch = (
-    query: string,
-    category: ProductCategory | "all",
-    organicOnly: boolean
-  ) => {
-    setLoading(true);
-
-    setTimeout(() => {
-      let filtered = mockProducts;
-
-      if (query.trim()) {
-        filtered = filtered.filter(
-          (product) =>
-            product.name.toLowerCase().includes(query.toLowerCase()) ||
-            product.description.toLowerCase().includes(query.toLowerCase())
-        );
-      }
-
-      if (category !== "all") {
-        filtered = filtered.filter((product) => product.category === category);
-      }
-
-      if (organicOnly) {
-        filtered = filtered.filter((product) => product.organic);
-      }
-
-      setFilteredProducts(filtered);
-      setLoading(false);
-    }, 500);
-  };
+  const { filteredProducts, loading } = useProductSearchContext();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -75,7 +41,7 @@ export const HomePage: React.FC = () => {
         </div>
 
         <div className="mb-8">
-          <ProductSearch onSearch={handleSearch} loading={loading} />
+          <ProductSearch />
         </div>
 
         <div>

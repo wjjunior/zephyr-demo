@@ -3,20 +3,10 @@ import { ProductCategory } from "../../../shared/lib/types";
 import { categories } from "../../../shared/lib/mock-data";
 import { Button } from "../../../shared/ui/Button";
 import { Input } from "../../../shared/ui/Input";
+import { useProductSearchContext } from "../../../shared/hooks";
 
-interface ProductSearchProps {
-  onSearch: (
-    query: string,
-    category: ProductCategory | "all",
-    organicOnly: boolean
-  ) => void;
-  loading?: boolean;
-}
-
-export const ProductSearch: React.FC<ProductSearchProps> = ({
-  onSearch,
-  loading = false,
-}) => {
+export const ProductSearch: React.FC = () => {
+  const { loading, handleSearch: searchProducts } = useProductSearchContext();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<
     ProductCategory | "all"
@@ -24,14 +14,14 @@ export const ProductSearch: React.FC<ProductSearchProps> = ({
   const [organicOnly, setOrganicOnly] = useState(false);
 
   const handleSearch = () => {
-    onSearch(searchQuery, selectedCategory, organicOnly);
+    searchProducts(searchQuery, selectedCategory, organicOnly);
   };
 
   const handleReset = () => {
     setSearchQuery("");
     setSelectedCategory("all");
     setOrganicOnly(false);
-    onSearch("", "all", false);
+    searchProducts("", "all", false);
   };
 
   return (
