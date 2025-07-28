@@ -1,5 +1,4 @@
 import * as path from "node:path";
-import { defineConfig } from "@rspack/cli";
 import { rspack } from "@rspack/core";
 import * as RefreshPlugin from "@rspack/plugin-react-refresh";
 import { ModuleFederationPlugin } from "@module-federation/enhanced/rspack";
@@ -27,10 +26,8 @@ export default withZephyr()({
     watchFiles: [path.resolve(__dirname, "src")],
   },
   output: {
-    // You need to set a unique value that is not equal to other applications
-    uniqueName: "zephyr_demo",
-    // publicPath must be configured if using manifest
-    publicPath: "http://localhost:8080/",
+    uniqueName: "agro_market",
+    publicPath: "auto",
   },
 
   experiments: {
